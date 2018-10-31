@@ -1,0 +1,8 @@
+---
+- name: clean up
+  become: yes
+  become_user: root
+  shell: rm -rf {{ item }}
+  with_items: 
+    - /tmp/*
+    - /home/{{ username }}/Downloads/*
