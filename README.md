@@ -40,5 +40,15 @@ This is an ansible playbook I created for easy replication of my Debian desktop.
 - la-capitaine
 - Misc Wallpapers
 
+# To Execute Playbook Locally
+- Default Settings
+> ansible-playbook site.yml
+- Custom Settings
+> ansible-playbook site.yml --extra-vars "user=joseph vm_key=00000-00000-00000-00000-00000"
+
+**After playbook execution, you may need to run**
+> ./.config/xfce4/XFCE-panel.sh
+**If the panels don't update.**
+
 ## Example Screenshots 
 ![Example Desktop](https://github.com/jbarcia/debian_ansible/raw/master/Selection_060.png)
