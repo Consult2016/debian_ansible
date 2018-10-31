@@ -48,6 +48,7 @@ This is an ansible playbook I created for easy replication of my Debian desktop.
 
 **After playbook execution, you may need to run**
 > ./.config/xfce4/XFCE-panel.sh
+
 **If the panels don't update.**
 
 ## Example Screenshots 
