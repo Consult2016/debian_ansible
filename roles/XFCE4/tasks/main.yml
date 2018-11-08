@@ -9,12 +9,41 @@
       - xfce4-goodies
       - xfce4-power-manager
       - xfce4-battery-plugin
+#      - bspwm
+#      - sxhkd
+      - xcb 
+      - libxcb-util0-dev 
+      - libxcb-ewmh-dev 
+      - libxcb-randr0-dev 
+      - libxcb-icccm4-dev 
+      - libxcb-keysyms1-dev 
+      - libxcb-xinerama0-dev 
+      - libasound2-dev 
+      - libxcb-xtest0-dev 
+      - libxcb-shape0-dev
+      - autoconf
+      - bison
+      - flex
+      - libxcb-xrm0
+      - rofi
+      - htop
     state: present
   register: results
   until: results is success
   retries: 10
   delay: 3
 
+- name: Stop xfce4 panel
+  become: yes
+  become_user: "{{ username }}"
+  shell: xfce4-panel --quit
+  ignore_errors: yes
+
+- name: Stop xfce4 panel
+  become: yes
+  become_user: "{{ username }}"
+  shell: pkill xfconfd
+  ignore_errors: yes
 
 - name: Create xfce panel launcher directories
   become: yes
@@ -42,12 +71,16 @@
     state: directory
     recurse: yes
 
-- name: Configure XFCE4 Keyboard Shortcuts
+- name: Create xfce-perchannel-xml directory
   become: yes
   become_user: "{{ username }}"
-  template:
-    src: xfce4-keyboard-shortcuts.j2
-    dest: /home/{{ username }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+  file:
+    path: /home/{{ username }}/.config/{{ item }}/
+    state: directory
+    recurse: yes
+  with_items:
+    - bspwm
+    - sxhkd
 
 - name: Configure XFCE4 Power Managment
   become: yes
@@ -72,6 +105,18 @@
     - { src: 'sublime_text.desktop', dest: '18/sublime_text.desktop' }
     - { src: 'keepass2.desktop', dest: '19/keepass2.desktop' }
     - { src: 'vmware.desktop', dest: '20/vmware.desktop' }
+
+- name: Configure XFCE4 Panels
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: "{{ item.src }}"
+    dest: '/home/{{ username }}/.config/xfce4/panel/{{ item.dest }}'
+  with_items:
+    - { src: 'cpugraph-25.rc.j2', dest: 'cpugraph-25.rc' }
+    - { src: 'fsguard-34.rc.j2', dest: 'fsguard-34.rc' }
+    - { src: 'netload-28.rc.j2', dest: 'netload-28.rc' }
+    - { src: 'systemload-27.rc.j2', dest: 'systemload-27.rc' }
 
 #- name: Configure XFCE
 #  become: yes
@@ -209,6 +254,13 @@
 #  command: "update-alternatives --set x-session-manager /usr/bin/xfce4-session"
 #  #update-alternatives --config x-session-manager
 
+- name: Copy over XFCE desktop xml # Template not working 
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: xfce4-desktop.xml.j2
+    dest: /home/{{ username }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
 - name: Copy over XFCE panel xml # Template not working 
   become: yes
   become_user: "{{ username }}"
@@ -238,3 +290,81 @@
   become_user: "{{ username }}"
   shell: /home/{{ username }}/.config/xfce4/XFCE-panel.sh
 ####################################################################################################
+
+- name: Clone bspwm repo
+  git: 
+    repo: https://github.com/baskerville/bspwm.git
+    dest: /tmp/bspwm-git/
+  register: results
+  until: results is success
+  retries: 10
+  delay: 3
+
+- name: Clone sxhkd repo
+  git: 
+    repo: https://github.com/baskerville/sxhkd.git
+    dest: /tmp/sxhkd-git/
+  register: results
+  until: results is success
+  retries: 10
+  delay: 3
+
+- name: Build bspwm
+  shell: chdir=/tmp/bspwm-git/ {{ item }}
+  with_items:
+    - make 
+    - make install
+
+- name: Build sxhkd
+  shell: chdir=/tmp/sxhkd-git/ {{ item }}
+  with_items:
+    - make
+    - make install
+
+- name: Copy over bspwm config
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: bspwmr.j2
+    dest: /home/{{ username }}/.config/bspwm/bspwmrc
+    mode: 0755
+
+- name: Copy over bspwm monitor script
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: multi-monitor.sh.j2
+    dest: /home/{{ username }}/.config/bspwm/multi-monitor.sh
+    mode: 0755
+
+- name: Copy over sxhkd config
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: sxhkdrc.j2
+    dest: /home/{{ username }}/.config/sxhkd/sxhkdrc
+
+- name: bspwm autostart
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: bspwm.desktop.j2
+    dest: /home/{{ username }}/.config/autostart/bspwm.desktop
+
+- name: sxhkd autostart
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: sxhkd.desktop.j2
+    dest: /home/{{ username }}/.config/autostart/sxhkd.desktop
+
+- name: Move xfdesktop and xfwm4 to "disable"
+  command: mv {{ item }}
+  with_items:
+#    - /usr/bin/xfdesktop /usr/bin/xfdesktop.bk
+    - /usr/bin/xfwm4 /usr/bin/xfwm4.bk
+
+####################################################################################################
+
+- name: Start xfce4
+  shell: xfce4-panel

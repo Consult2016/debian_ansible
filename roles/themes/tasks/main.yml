@@ -238,12 +238,13 @@
     state: directory
     recurse: yes
 
-- name: Conky Start
-  become: yes
-  become_user: "{{ username }}"
-  template:
-    src: conkyscript.desktop.j2
-    dest: /home/{{ username }}/.config/autostart/conkyscript.desktop
+# Disabled Conky Autostart
+#- name: Conky Start
+#  become: yes
+#  become_user: "{{ username }}"
+#  template:
+#    src: conkyscript.desktop.j2
+#    dest: /home/{{ username }}/.config/autostart/conkyscript.desktop
 
 - name: Cleanup
   file:
