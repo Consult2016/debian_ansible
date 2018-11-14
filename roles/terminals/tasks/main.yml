@@ -13,6 +13,7 @@
       - asciinema
       - shutter
       - byobu
+      - mosh
     state: present
   register: results
   until: results is success

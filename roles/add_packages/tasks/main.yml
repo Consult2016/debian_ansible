@@ -105,3 +105,36 @@
   become: yes
   become_user: root
   apt: deb="/home/{{ username }}/Downloads/teamviewer_amd64.deb"
+
+# Install Microsoft Teams - Hardcoded version 0.1.9
+- name: Download Teamviewer
+  become: yes
+  become_user: "{{ username }}"
+  get_url: 
+    url="https://github.com/IsmaelMartinez/teams-for-linux/releases/download/v0.1.9/teams-for-linux_0.1.9_amd64.deb"
+    dest="/home/{{ username }}/Downloads/teams-for-linux_0.1.9_amd64.deb"
+
+- name: Install Teamviewer
+  become: yes
+  become_user: root
+  apt: deb="/home/{{ username }}/Downloads/teams-for-linux_0.1.9_amd64.deb"
+
+
+# Install Microsoft OneNote - Hardcoded version
+- name: Download Microsoft OneNote
+  get_url: 
+    url="https://github.com/patrikx3/onenote/releases/download/2018.9.5-5/p3x-onenote-2018.9.5-5-x86_64.AppImage"
+    dest="/opt/p3x-onenote"
+    mode=0755
+
+- name: Copy over icon
+  copy:
+    src: onenote.svg
+    dest: /opt/onenote.svg
+
+- name: Add Menu Shortcut
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: onenote.desktop.j2
+    dest: /home/{{ username }}/.local/share/applications/onenote.desktop
