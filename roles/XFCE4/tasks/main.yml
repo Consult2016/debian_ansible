@@ -363,6 +363,7 @@
   with_items:
 #    - /usr/bin/xfdesktop /usr/bin/xfdesktop.bk
     - /usr/bin/xfwm4 /usr/bin/xfwm4.bk
+  ignore_errors: yes
 
 ####################################################################################################
 
