@@ -61,6 +61,7 @@
       - cherrytree
       - keepass2
       - evolution
+      - evolution-ews
       - git
     state: present
 

@@ -125,12 +125,13 @@
   get_url: 
     url="https://github.com/patrikx3/onenote/releases/download/2018.9.5-5/p3x-onenote-2018.9.5-5-x86_64.AppImage"
     dest="/opt/p3x-onenote"
-    mode=0755
+    mode: 0755
 
 - name: Copy over icon
   copy:
     src: onenote.svg
     dest: /opt/onenote.svg
+    mode: 0664
 
 - name: Add Menu Shortcut
   become: yes
@@ -138,3 +139,9 @@
   template:
     src: onenote.desktop.j2
     dest: /home/{{ username }}/.local/share/applications/onenote.desktop
+
+
+#https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
+#    Right-click the download button and choose 'Save Link As'
+#    Extract the tar.bz2 file
+#    Run 'sudo apt-get install ca-certificates libssl0.9.8' to update necessary packages
