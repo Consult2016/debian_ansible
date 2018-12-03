@@ -45,12 +45,12 @@
     # Configure NTP
     - { role: ntp, tags: [ 'ntp' ] }
 
+    # Configure XFCE
+    - { role: XFCE4, tags: [ 'configure XFCE4' ] }
     # Misc desktop settings (lock screen, screensaver, user dirs)
     - { role: desktop_settings, tags: [ 'desktop manager' ] }
     # Install Themes
     - { role: themes, tags: [ 'configure themes' ] }
-    # Configure XFCE
-    - { role: XFCE4, tags: [ 'configure XFCE4' ] }
     # Configure Terminals
     - { role: terminals, tags: [ 'configure terminals' ] }
     # Configure Third Party Software
