@@ -33,7 +33,6 @@
       - make
       - gcc
       - unzip
-      - firefox-esr
       - sqlite3
       - python
       - golang 
@@ -77,6 +76,22 @@
   retries: 10
   delay: 3
 
+- name: Install Firefox
+  become: yes
+  become_user: root
+  apt:
+    pkg:
+      - firefox-esr
+  when: ansible_distribution == 'Debian'
+
+- name: Install Firefox
+  become: yes
+  become_user: root
+  apt:
+    pkg:
+      - firefox
+  when: ansible_distribution == 'Ubuntu'
+  
 - name: Upgrade Dist
   become: yes
   become_user: root
