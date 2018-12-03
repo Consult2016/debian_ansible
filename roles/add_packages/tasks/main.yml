@@ -157,9 +157,10 @@
     src: onenote.desktop.j2
     dest: /home/{{ username }}/.local/share/applications/onenote.desktop
 
-- name: Add LastPass Pocket
-  unarchive:
-    remote_src: yes
-    src: https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
-    dest: /tmp/
+# No longer supported, export csv and import to GPG
+#- name: Add LastPass Pocket
+#  unarchive:
+#    remote_src: yes
+#    src: https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
+#    dest: /tmp/
 #    mode: 0766

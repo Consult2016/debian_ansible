@@ -12,6 +12,8 @@
       - lightdm
       - lightdm-settings
       - slick-greeter
+#      - light-locker
+#      - light-locker-settings
 #      - bspwm
 #      - sxhkd
       - xcb 
@@ -49,13 +51,13 @@
   ignore_errors: yes
   when: ansible_distribution == 'Debian'
 
-- name: Disable Lockscreen
-  shell: "{{ item }}"
-  with_items:
-    - gsettings set org.gnome.desktop.session idle-delay 0
-    - gsettings set org.gnome.desktop.screensaver lock-enabled false
-    - gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-  when: ansible_distribution == 'Ubuntu'
+#- name: Disable Lockscreen
+#  shell: "{{ item }}"
+#  with_items:
+#    - gsettings set org.gnome.desktop.session idle-delay 0
+#    - gsettings set org.gnome.desktop.screensaver lock-enabled false
+#    - gsettings set org.gnome.desktop.lockdown disable-lock-screen true
+#  when: ansible_distribution == 'Ubuntu'
 
 - name: Create xfce panel launcher directories
   become: yes
@@ -74,6 +76,7 @@
     - 18
     - 19
     - 20
+    - 32
 
 - name: Create xfce-perchannel-xml directory
   become: yes
@@ -110,13 +113,33 @@
   with_items:
     - { src: 'exo-terminal-emulator.desktop', dest: '9/exo-terminal-emulator.desktop' }
     - { src: 'exo-file-manager.desktop', dest: '10/exo-file-manager.desktop' }
-    - { src: 'exo-web-browser.desktop', dest: '11/exo-web-browser.desktop' }
     - { src: 'xfce4-appfinder.desktop', dest: '12/xfce4-appfinder.desktop' }
     - { src: 'cherrytree.desktop', dest: '16/cherrytree.desktop' }
     - { src: 'google-chrome.desktop', dest: '17/google-chrome.desktop' }
     - { src: 'sublime_text.desktop', dest: '18/sublime_text.desktop' }
     - { src: 'keepass2.desktop', dest: '19/keepass2.desktop' }
     - { src: 'vmware.desktop', dest: '20/vmware.desktop' }
+    - { src: 'evolution.desktop.j2', dest: '32/evolution.desktop' }
+
+- name: Configure Firefox Panel (Debian)
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: "{{ item.src }}"
+    dest: '/home/{{ username }}/.config/xfce4/panel/launcher-{{ item.dest }}'
+  with_items:
+    - { src: 'firefox-esr.desktop', dest: '11/firefox.desktop' }
+  when: ansible_distribution == 'Debian'
+
+- name: Configure Firefox Panel (Ubuntu)
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: "{{ item.src }}"
+    dest: '/home/{{ username }}/.config/xfce4/panel/launcher-{{ item.dest }}'
+  with_items:
+    - { src: 'firefox.desktop', dest: '11/firefox.desktop' }
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Configure XFCE4 Panels
   become: yes
