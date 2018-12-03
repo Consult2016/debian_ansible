@@ -40,7 +40,6 @@
       - p7zip-full
       - zip
       - p7zip
-      - curl
       - openssl
       - sudo
       - vim
@@ -83,6 +82,8 @@
     pkg:
       - firefox-esr
       - ttf-freefont
+      - curl
+
   when: ansible_distribution == 'Debian'
 
 - name: Install Ubuntu Specific Packages
@@ -91,6 +92,8 @@
   apt:
     pkg:
       - firefox
+      - libcurl4
+      - curl
   when: ansible_distribution == 'Ubuntu'
 
 - name: Upgrade Dist
