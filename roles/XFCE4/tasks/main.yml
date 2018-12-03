@@ -33,11 +33,11 @@
   retries: 10
   delay: 3
 
-- name: Stop xfce4 panel
-  become: yes
-  become_user: "{{ username }}"
-  shell: xfce4-panel --quit
-  ignore_errors: yes
+#- name: Stop xfce4 panel
+#  become: yes
+#  become_user: "{{ username }}"
+#  shell: xfce4-panel --quit
+#  ignore_errors: yes
 
 - name: Stop xfce4 panel
   become: yes
@@ -367,8 +367,8 @@
 
 ####################################################################################################
 
-- name: Start xfce4
-  shell: xfce4-panel
+#- name: Start xfce4
+#  shell: xfce4-panel
 
 ####################################################################################################
 - name: Remove Gnome
