@@ -125,8 +125,8 @@
 # Install Microsoft OneNote - Hardcoded version
 - name: Download Microsoft OneNote
   get_url: 
-    url="https://github.com/patrikx3/onenote/releases/download/2018.9.5-5/p3x-onenote-2018.9.5-5-x86_64.AppImage"
-    dest="/opt/p3x-onenote"
+    url: "https://github.com/patrikx3/onenote/releases/download/2018.9.5-5/p3x-onenote-2018.9.5-5-x86_64.AppImage"
+    dest: "/opt/p3x-onenote"
     mode: 0755
 
 - name: Copy over icon
