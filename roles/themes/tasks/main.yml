@@ -247,6 +247,13 @@
 #    src: conkyscript.desktop.j2
 #    dest: /home/{{ username }}/.config/autostart/conkyscript.desktop
 
+
+
+# Could not load /etc/lightdm/slick-greeter.conf.
+# Could not load /etc/lightdm/lightdm.conf.
+
+
+
 - name: Cleanup
   file:
     path: /tmp/{{ item }}

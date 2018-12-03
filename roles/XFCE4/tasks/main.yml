@@ -384,9 +384,13 @@
     - /usr/bin/xfwm4 /usr/bin/xfwm4.bk
   ignore_errors: yes
 
-####################################################################################################
+# Greeter config
+- name: lightdm config
+  template:
+    src: lightdm.conf.j2
+    dest: /etc/lightdm/lightdm.conf
 
-#- name: Start xfce4
-#  shell: xfce4-panel
-
-####################################################################################################
+- name: Slick Greeter config
+  template:
+    src: slick-greeter.conf.j2
+    dest: /etc/lightdm/slick-greeter.conf
