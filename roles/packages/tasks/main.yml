@@ -3,6 +3,13 @@
   template:
     src: sources.list.j2
     dest: /etc/apt/sources.list
+    when: ansible_distribution == 'Debian'
+
+- name: Update Sources
+  template:
+    src: sources.list-ub.j2
+    dest: /etc/apt/sources.list
+    when: ansible_distribution == 'Ubuntu'
 
 - name: Update and upgrade apt packages
   become: yes
