@@ -10,6 +10,7 @@
       - xfce4-power-manager
       - xfce4-battery-plugin
       - lightdm
+      - lightdm-settings
       - slick-greeter
 #      - bspwm
 #      - sxhkd
