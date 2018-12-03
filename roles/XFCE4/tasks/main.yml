@@ -44,6 +44,14 @@
   become_user: "{{ username }}"
   shell: pkill xfconfd
   ignore_errors: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Disable Lockscreen
+  shell: {{ item }}
+  with_items:
+    - gsettings set org.gnome.desktop.session idle-delay 0
+    - gsettings set org.gnome.desktop.screensaver lock-enabled false
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Create xfce panel launcher directories
   become: yes
