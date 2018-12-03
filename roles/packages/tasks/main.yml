@@ -56,16 +56,11 @@
       - libreoffice-writer 
       - libreoffice-calc 
       - libreoffice-impress 
-      - shutter
       - libavcodec-extra 
       - ffmpeg
       - pavucontrol
       - apt-transport-https 
       - libcurl3
-      - cherrytree
-      - keepass2
-      - evolution
-      - evolution-ews
       - git
       - rsync
     state: present
