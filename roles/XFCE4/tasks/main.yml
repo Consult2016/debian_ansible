@@ -10,6 +10,7 @@
       - xfce4-power-manager
       - xfce4-battery-plugin
       - lightdm
+      - slick-greeter
 #      - bspwm
 #      - sxhkd
       - xcb 
@@ -52,6 +53,7 @@
   with_items:
     - gsettings set org.gnome.desktop.session idle-delay 0
     - gsettings set org.gnome.desktop.screensaver lock-enabled false
+    - gsettings set org.gnome.desktop.lockdown disable-lock-screen true
   when: ansible_distribution == 'Ubuntu'
 
 - name: Create xfce panel launcher directories
@@ -276,6 +278,13 @@
   template:
     src: xfce4-panel.xml.j2
     dest: /home/{{ username }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+
+- name: Copy over XFCE Settings # Template not working 
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    src: XFCE-xsettings.xml.j2
+    dest: /home/{{ username }}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
 ####################################################################################################
 ### Backup for issues copying over template panels

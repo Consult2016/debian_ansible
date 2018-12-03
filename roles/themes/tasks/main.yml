@@ -91,16 +91,16 @@
   retries: 10
   delay: 3
 
-- name: Enable Theme
-  become: yes
-  become_user: "{{ username }}"
-  command: "{{ item }}"
-  with_items:
-  - xfconf-query -n -c xsettings -p /Net/ThemeName -s "axiomd"
-  - xfconf-query -n -c xsettings -p /Net/IconThemeName -s "Flat-Remix"
-  - gtk-update-icon-cache "/home/{{ username }}/.icons/Flat-Remix"
-  when: desktop == "XFCE"
-  ignore_errors: yes
+#- name: Enable Theme
+#  become: yes
+#  become_user: "{{ username }}"
+#  command: "{{ item }}"
+#  with_items:
+#  - xfconf-query -n -c xsettings -p /Net/ThemeName -s "axiomd"
+#  - xfconf-query -n -c xsettings -p /Net/IconThemeName -s "Flat-Remix"
+#  - gtk-update-icon-cache "/home/{{ username }}/.icons/Flat-Remix"
+#  when: desktop == "XFCE"
+#  ignore_errors: yes
 
 - name: Create Wallpaper directory
   file:
