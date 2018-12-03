@@ -67,6 +67,7 @@
       - evolution
       - evolution-ews
       - git
+      - rsync
     state: present
     install_recommends: yes
 

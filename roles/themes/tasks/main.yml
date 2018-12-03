@@ -73,7 +73,7 @@
 - name: Move over Flat-Remix Icons
   become: yes
   become_user: "{{ username }}"
-  shell: mv -f /tmp/flat-remix/{{ item }} /home/joseph/.icons/{{ item }}
+  shell: rsync -a /tmp/flat-remix/{{ item }}/ /home/joseph/.icons/{{ item }}
   with_items:
     - Flat-Remix
     - Flat-Remix-Light
