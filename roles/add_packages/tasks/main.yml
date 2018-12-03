@@ -161,5 +161,5 @@
   unarchive:
     remote_src: yes
     src: https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
-    dest: /tmp/pocket
+    dest: /tmp/
 #    mode: 0766
