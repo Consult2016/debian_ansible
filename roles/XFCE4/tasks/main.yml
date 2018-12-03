@@ -9,6 +9,7 @@
       - xfce4-goodies
       - xfce4-power-manager
       - xfce4-battery-plugin
+      - lightdm
 #      - bspwm
 #      - sxhkd
       - xcb 
