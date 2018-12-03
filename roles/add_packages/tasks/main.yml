@@ -14,6 +14,8 @@
       - qml-module-qtquick-dialogs
       - qml-module-qtquick-window2
       - qml-module-qtquick-layouts
+      - ca-certificates 
+      - libssl0.9.8
     state: present
 
 # Install Sublime Text 3
@@ -140,8 +142,9 @@
     src: onenote.desktop.j2
     dest: /home/{{ username }}/.local/share/applications/onenote.desktop
 
-
-#https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
-#    Right-click the download button and choose 'Save Link As'
-#    Extract the tar.bz2 file
-#    Run 'sudo apt-get install ca-certificates libssl0.9.8' to update necessary packages
+- name: Add LastPass Pocket
+  unarchive:
+    remote_src: yes
+    src: https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
+    dest: /tmp/pocket
+#    mode: 0766
