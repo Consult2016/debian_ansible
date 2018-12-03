@@ -45,7 +45,6 @@
       - sudo
       - vim
       - net-tools
-      - ttf-freefont
       - file-roller 
       - evince 
       - qalculate 
@@ -76,22 +75,23 @@
   retries: 10
   delay: 3
 
-- name: Install Firefox
+- name: Install Debian Specific Packages
   become: yes
   become_user: root
   apt:
     pkg:
       - firefox-esr
+      - ttf-freefont
   when: ansible_distribution == 'Debian'
 
-- name: Install Firefox
+- name: Install Ubuntu Specific Packages
   become: yes
   become_user: root
   apt:
     pkg:
       - firefox
   when: ansible_distribution == 'Ubuntu'
-  
+
 - name: Upgrade Dist
   become: yes
   become_user: root
