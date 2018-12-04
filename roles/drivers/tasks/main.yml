@@ -4,7 +4,7 @@
     src: non-free.j2
     dest: /etc/apt/sources.list.d/non-free.list
 
-- name: Install Sublime Text Packages
+- name: Install Packages
   become: yes
   become_user: root
   apt: name=firmware-iwlwifi state=latest update_cache=true

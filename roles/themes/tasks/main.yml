@@ -1,11 +1,42 @@
 ---
 - name: Install Packages
-  apt: name=conky state=latest update_cache=true
+  apt: 
+    pkg:
+      - conky
+      - libev-dev
+      - libxcb-composite0
+      - libxcb-composite0-dev
+      - libxcb-xinerama0
+      - libxcb-randr0
+      - libxcb-xinerama0-dev
+      - libxcb-xkb-dev
+      - libxcb-image0-dev
+      - libxcb-util-dev
+      - libxkbcommon-x11-dev
+      - libjpeg-turbo8-dev
+      - libpam0g-dev
+      - imagemagick
+      - x11-xserver-utils
+    state: present
+    update_cache: yes
   register: results
   until: results is success
   retries: 10
   delay: 3
 
+- name: Add support for libxcb-xrm
+  apt_repository: repo='ppa:aguignard/ppa' state=present
+
+- name: Install Packages
+  apt: 
+    pkg:
+      - libxcb-xrm-dev
+    state: present
+    update_cache: yes
+  register: results
+  until: results is success
+  retries: 10
+  delay: 3
 
 - name: Create Themes directory
   become: yes
@@ -247,11 +278,47 @@
 #    src: conkyscript.desktop.j2
 #    dest: /home/{{ username }}/.config/autostart/conkyscript.desktop
 
+- name: Clone i3lock-color repo
+  git: 
+    repo: https://github.com/PandorasFox/i3lock-color
+    dest: /opt/i3lock-color
+    force: yes
+  register: results
+  until: results is success
+  retries: 10
+  delay: 3
 
 
-# Could not load /etc/lightdm/slick-greeter.conf.
-# Could not load /etc/lightdm/lightdm.conf.
+- shell: chdir=/opt/i3lock-color/ {{ item }}
+  items: 
+    - autoreconf -i 
+    - ./configure 
+    - make
 
+- file:
+    src: /opt/i3lock-color/x86_64-pc-linux-gnu/i3lock
+    dest: /usr/bin/i3lock
+    state: link
+
+- name: Clone i3lock-color repo
+  git: 
+    repo: https://github.com/pavanjadhaw/betterlockscreen
+    dest: /opt/betterlockscreen
+    force: yes
+  register: results
+  until: results is success
+  retries: 10
+  delay: 3
+
+- file:
+    src: /opt/betterlockscreen/betterlockscreen 
+    dest: /usr/bin/betterlockscreen
+    state: link
+
+- name: Update Lockscreen Utility
+  template:
+    src: xflock4.j2
+    dest: /usr/bin/xflock4
 
 
 - name: Cleanup

@@ -128,14 +128,14 @@
   apt: deb="/home/{{ username }}/Downloads/teamviewer_amd64.deb"
 
 # Install Microsoft Teams - Hardcoded version 0.1.9
-- name: Download Teamviewer
+- name: Download MSTeams
   become: yes
   become_user: "{{ username }}"
   get_url: 
     url="https://github.com/IsmaelMartinez/teams-for-linux/releases/download/v0.1.9/teams-for-linux_0.1.9_amd64.deb"
     dest="/home/{{ username }}/Downloads/teams-for-linux_0.1.9_amd64.deb"
 
-- name: Install Teamviewer
+- name: Install MSTeam
   become: yes
   become_user: root
   apt: deb="/home/{{ username }}/Downloads/teams-for-linux_0.1.9_amd64.deb"
