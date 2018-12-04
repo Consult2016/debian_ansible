@@ -15,6 +15,7 @@
       - libxkbcommon-x11-dev
       - libjpeg-turbo8-dev
       - libpam0g-dev
+      - libcairo-dev
       - imagemagick
       - x11-xserver-utils
     state: present
@@ -290,7 +291,7 @@
 
 
 - shell: chdir=/opt/i3lock-color/ {{ item }}
-  items: 
+  with_items: 
     - autoreconf -i 
     - ./configure 
     - make
@@ -314,6 +315,8 @@
     src: /opt/betterlockscreen/betterlockscreen 
     dest: /usr/bin/betterlockscreen
     state: link
+
+- shell: /usr/bin/betterlockscreen -u /usr/share/wallpapers/wallpapers/
 
 - name: Update Lockscreen Utility
   template:
