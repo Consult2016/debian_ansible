@@ -36,4 +36,15 @@
       - zeitgeist* 
       - libzeitgeist* 
       - overlay-scrollba*
+      - xscreensaver*
     state: absent
+
+- name: Install Packages
+  become: yes
+  become_user: root
+  apt:
+    pkg:
+      - evolution
+      - evolution-common
+      - evolution-ews
+    state: present

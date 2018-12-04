@@ -17,6 +17,7 @@
       - cherrytree
       - keepass2
       - evolution
+      - evolution-common
       - evolution-ews
       - shutter
     state: present
