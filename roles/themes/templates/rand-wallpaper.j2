@@ -1,11 +1,31 @@
 #!/bin/bash
 
-wallpaper="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
+wallpaper0="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
+wallpaper1="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
+wallpaper2="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
+wallpaper3="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
+wallpaper4="$(shuf -n1 -e $(find /usr/share/wallpapers/ -maxdepth 5 -name 'wallpaper_*'))"
 
 ## XFCE - Desktop wallpaper
 /usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor0/image-show -t bool -s true
-/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -t string -s "${wallpaper}"
-/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -t string -s "${wallpaper}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -t string -s "${wallpaper0}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -t string -s "${wallpaper0}"
+
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor1/image-show -t bool -s true
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor1/image-path -t string -s "${wallpaper1}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -t string -s "${wallpaper1}"
+
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor2/image-show -t bool -s true
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor2/image-path -t string -s "${wallpaper2}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -t string -s "${wallpaper2}"
+
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor3/image-show -t bool -s true
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor3/image-path -t string -s "${wallpaper3}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -t string -s "${wallpaper3}"
+
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor4/image-show -t bool -s true
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor4/image-path -t string -s "${wallpaper4}"
+/usr/bin/xfconf-query -n -c xfce4-desktop -p /backdrop/screen0/monitor4/workspace0/last-image -t string -s "${wallpaper4}"
 
 ## GNOME - Desktop wallpaper
 #[[ $(which gnome-shell) ]] \

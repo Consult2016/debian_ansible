@@ -26,6 +26,18 @@
   with_items:
      - /tmp/vmware-workstation.bundle --console --required --eulas-agreed --set-setting vmware-workstation serialNumber {{ vm_key }} 
 
+- name: Change kernel paging
+  shell: "{{ item }}"
+  with_items: 
+    - echo never > /sys/kernel/mm/transparent_hugepage/enabled 
+    - echo never > /sys/kernel/mm/transparent_hugepage/defrag
+
+- name: Configure kernal paging on boot
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+    mode: 0755
+
 - name: Cleanup VMWare
   file:
     path: /tmp/vmware-workstation.bundle
