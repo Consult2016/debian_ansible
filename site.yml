@@ -64,3 +64,8 @@
 #    - debug:
 #        msg:
 #         - "Ensure you copy off the user's private SSH key to maintain access to the server"
+
+######NOTES
+# ADD WHATSAPP
+# https://www.thefanclub.co.za/sites/all/modules/pubdlcnt/pubdlcnt.php?file=https://www.thefanclub.co.za/sites/default/files/public/downloads/whatsapp-webapp_1.0_all.deb&nid=200
+# dpkg -i whatsapp-webapp_1.0_all.deb
